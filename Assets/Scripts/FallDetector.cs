@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class FallDetector : MonoBehaviour {
 
 	public float maxFall = -1f;
-	public GameObject whisperSounds;
+	private GameObject whisperSounds;
 	
 	// Use this for initialization
 	void Start () {
-		
+		 whisperSounds = GameObject.Find("WhisperSource");
 	}
 	
 	// Update is called once per frame

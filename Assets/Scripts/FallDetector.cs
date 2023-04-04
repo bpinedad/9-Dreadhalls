@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class FallDetector : MonoBehaviour {
 
 	public float maxFall = -1f;
+	public GameObject whisperSounds;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,7 @@ public class FallDetector : MonoBehaviour {
 
 		// If player is below certain Y limit go to game over screen
 		if (transform.position.y < maxFall) {
+			Destroy(whisperSounds);
 			SceneManager.LoadScene("GameOver");
 		}
 	}

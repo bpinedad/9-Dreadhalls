@@ -33,6 +33,8 @@ public class LevelGenerator : MonoBehaviour {
 	// 2D array representing holes in the map
 	// Made this way to ensure holes exist on created map for mapData and not under walls
 	private bool[,] mapHoles;
+	private int maxHoles = 4;
+	private int currentHoles = 0;
 
 	// we use these to dig through our maze and to spawn the pickup at the end
 	private int mazeX = 4, mazeY = 1;
@@ -89,9 +91,10 @@ public class LevelGenerator : MonoBehaviour {
 		for (int y = 0; y < mazeSize; y++) {
 			for (int x = 0; x < mazeSize; x++) {
 				data[y, x] = true;
-				mapHoles[y, x] = true;
+				mapHoles[y, x] = false;
 			}
 		}
+
 
 		// counter to ensure we consume a minimum number of tiles
 		int tilesConsumed = 0;
@@ -120,8 +123,11 @@ public class LevelGenerator : MonoBehaviour {
 				if (data[mazeY, mazeX]) {
 					data[mazeY, mazeX] = false;
 
-					// This is a valid space add probability for it to be a hole. 5%
-					mapHoles[mazeY, mazeX] = Random.value < 0.05;
+					// This is a valid space add probability for it to be a hole. 2%
+					if (Random.value < 0.05 && currentHoles < maxHoles) {
+						mapHoles[mazeY, mazeX] = true;
+						currentHoles++;
+					}
 
 					tilesConsumed++;
 				}
